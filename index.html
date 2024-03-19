@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Algorithm Visualization</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="root"></div>
+
+    <div id="alert">
+        <img src="./images/icon-checked.png" />
+    </div>
+    
+    <div class="algorithm-list">
+        <div>
+            <input type="radio" id="bubble" name="algorithm_sort" value="bubble">
+            <label for="buble">Bubble Sort</label>
+        </div>
+        <div>
+            <input type="radio" id="selection" name="algorithm_sort" value="selection">
+            <label for="selection">Selection Sort</label>
+        </div>
+    </div>
+
+    <div class="action-btn">
+        <button id="btn-sort">SORT</button>
+        <button id="btn-shuffle">SHUFFLE</button>
+    </div>
+
+
+    <script type="module" src="./sort.js">
+    </script>
+
+    <script type="module">
+        import { sort, shuffle, changeAlgorithm } from './sort.js'
+        
+        document.getElementById('btn-sort').addEventListener('click', sort)
+        document.getElementById('btn-shuffle').addEventListener('click', shuffle)
+        const els = document.getElementsByTagName('input')
+        for (const el of els) {
+            el.addEventListener('click', changeAlgorithm)
+        }
+
+    </script>
+</body>
+</html>

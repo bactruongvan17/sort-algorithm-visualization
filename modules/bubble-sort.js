@@ -1,28 +1,31 @@
-export async function sort(input, inputLength, createCell) {
-    for (let i = 0; i < inputLength; i++) {
+export async function sort(input, inputLength, elRefs, createCell) {
+
+    let swapped
+    do {
+        swapped = false
+
         for (let j = 0; j < inputLength - 1; j++) {
-            document.getElementById(`item-${j + 1}`).classList.add('loop')
+            elRefs.get(j + 1).classList.add('loop')
             await new Promise(resolve => setTimeout(resolve, 300))
             
             if (input[j] > input[j + 1]) {
-                const temp = input[j]
-                input[j] = input[j + 1]
-                input[j + 1] = temp
+                [input[j], input[j + 1]] = [input[j + 1], input[j]]
 
-                document.getElementById(`item-${j + 1}`).classList.remove('loop')
-                await swap(j, createCell)
+                elRefs.get(j + 1).classList.remove('loop')
+                await swap(j, elRefs, createCell)
+                swapped = true
             } else {
-                document.getElementById(`item-${j + 1}`).classList.remove('loop')
+                elRefs.get(j + 1).classList.remove('loop')
             }
         }
-    }
+    } while (swapped);
 
     document.getElementById('alert').style.visibility = 'visible'
 }
 
-async function swap(index, createCell) {
-    const firstEl = document.getElementById(`item-${index}`)
-    const secondEl = document.getElementById(`item-${index + 1}`)
+async function swap(index, elRefs, createCell) {
+    const firstEl = elRefs.get(index)
+    const secondEl = elRefs.get(index + 1)
 
     firstEl.classList.add('selected')
     secondEl.classList.add('selected')
@@ -50,6 +53,9 @@ async function swap(index, createCell) {
 
     parent.replaceChild(newFristNode, children[index])
     parent.replaceChild(newSecondNode, children[index + 1])
+
+    elRefs.set(index, newFristNode)
+    elRefs.set(index + 1, newSecondNode)
     
     await new Promise(resolve => setTimeout(resolve, 500))
 }

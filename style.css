@@ -26,7 +26,8 @@
 }
 
 #root span.loop {
-    border: 1px dashed #52e011
+    border: 1px dashed #52e011;
+    color: #52e011;
 }
 
 .algorithm-list {

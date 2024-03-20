@@ -1,8 +1,9 @@
 import { sort as bubbleSort } from './modules/bubble-sort.js'
+import { sort as selectionSort } from './modules/selection-sort.js'
 
 const input = [65, 11, 34, 42, 91, 56, 3, 2, 7]
 const inputLength = input.length
-let algorithm = 'bubble'
+let algorithm = 'selection'
 const elRefs = new Map()
 
 window.onload = () => {
@@ -34,6 +35,9 @@ export function sort() {
     switch (algorithm) {
         case 'bubble':
             bubbleSort(input, inputLength, elRefs, createCell)
+            break
+        case 'selection': 
+            selectionSort(input, inputLength, elRefs, createCell)
             break
         default: 
             alert('Algorithm undefined')
